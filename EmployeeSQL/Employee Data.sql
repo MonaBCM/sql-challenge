@@ -12,7 +12,8 @@ create table employees(emp_no integer not null,
 					   last_name character varying(45) NOT NULL,
 					   sex character(1) not null,
 					   hire_date character varying(45)   NOT NULL,
-					   primary key (emp_no));
+					   primary key (emp_no),
+					   foreign key(emp_title_id) references titles(title_id));
 Select * from employees;
 
 create table salaries(emp_no integer not null,
@@ -21,7 +22,8 @@ create table salaries(emp_no integer not null,
 select * from salaries;
 
 create table titles(title_id character varying(45) not null,
-				   title character varying (45) not null);
+				   title character varying (45) not null,
+				   primary key(title_id));
 select * from titles;
 
 create table departments(dept_no character varying(45) not null,
@@ -29,13 +31,17 @@ create table departments(dept_no character varying(45) not null,
 						primary key(dept_no));
 select * from departments;
 
-create table dept_emp(emp_no integer not null, dept_no character varying(45) not null,foreign key(emp_no) references employees(emp_no));
+create table dept_emp(emp_no integer not null, 
+					  dept_no character varying(45) not null,
+					  foreign key(emp_no) references employees(emp_no),
+					  foreign key(dept_no) references departments(dept_no);
 					  
 select * from dept_emp; 
 
 create table dept_manager(dept_no character varying(45) not null,
 						 emp_no integer not null,
-						 foreign key(emp_no) references employees(emp_no));
+						 foreign key(emp_no) references employees(emp_no),
+						 foreign key (dept_no) references departments(dept_no));
 select * from dept_manager;
 						 
 
